@@ -11,5 +11,4 @@ class ClientSideCodeHighlighting
     {
         return $next($site);
     }
-
 }

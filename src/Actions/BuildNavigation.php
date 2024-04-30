@@ -13,7 +13,7 @@ class BuildNavigation
     {
         $navigation = collect();
 
-        $site->blade_files->each(function($page) use ($navigation, $site) {
+        $site->blade_files->each(function ($page) use ($navigation, $site) {
 
             $weight = $this->getWeight($page);
 
@@ -23,22 +23,20 @@ class BuildNavigation
                 'weight' => $weight,
             ]);
 
-            $site->blade_files->each(fn($page) => $page->lines->each(fn($line) => $line->stripTag((string) $weight)));
+            $site->blade_files->each(fn ($page) => $page->lines->each(fn ($line) => $line->stripTag((string) $weight)));
         });
 
-        File::put($site->configuration['folio_path'] .'/navigation.json', $navigation->sortBy('weight')->filter(fn($item) => $item['weight'] !== null)->toJson());
+        File::put($site->configuration['folio_path'].'/navigation.json', $navigation->sortBy('weight')->filter(fn ($item) => $item['weight'] !== null)->toJson());
 
         return $next($site);
     }
 
     protected function getWeight(DocumentationPage $page)
     {
-        $weight = (int) $page->lines->map(function($line) {
-            return collect($line->tags)->filter(fn($tag) => is_numeric($tag));
+        $weight = (int) $page->lines->map(function ($line) {
+            return collect($line->tags)->filter(fn ($tag) => is_numeric($tag));
         })->max()->first();
-
 
         return $weight > 0 ? $weight : null;
     }
-
 }

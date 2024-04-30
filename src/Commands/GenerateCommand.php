@@ -3,16 +3,11 @@
 namespace ArtisanBuild\Docsidian\Commands;
 
 use ArtisanBuild\Docsidian\Actions\AddNavigationToAllRenderedFiles;
-use ArtisanBuild\Docsidian\Actions\HighlightCodeWithTempest;
 use ArtisanBuild\Docsidian\Actions\BuildNavigation;
 use ArtisanBuild\Docsidian\Actions\DecorateRemainingHashTags;
-
 use ArtisanBuild\Docsidian\Actions\EnableLiveCode;
 use ArtisanBuild\Docsidian\Actions\EnsureAllHeadingsHaveAnId;
-use ArtisanBuild\Docsidian\Actions\EnsureAnIndexFileExists;
 use ArtisanBuild\Docsidian\Actions\GenerateOnPageNavigation;
-use ArtisanBuild\Docsidian\Actions\GetPageTitles;
-use ArtisanBuild\Docsidian\Actions\ParseMarkdownFiles;
 use ArtisanBuild\Docsidian\Actions\RemoveEmptyParagraphs;
 use ArtisanBuild\Docsidian\Actions\SetBlockVisibility;
 use ArtisanBuild\Docsidian\Actions\SetPageVisibility;
@@ -40,7 +35,6 @@ class GenerateCommand extends Command
             File::ensureDirectoryExists($site['folio_path']);
             File::put(implode('/', [$site['folio_path'], 'index.blade.php']), '<p>Please add an index.md file to your markdown directory.</p>');
 
-
             Pipeline::send(new DocumentationSite($site))
                 ->through([
                     BuildNavigation::class,
@@ -62,5 +56,4 @@ class GenerateCommand extends Command
 
         return self::SUCCESS;
     }
-
 }

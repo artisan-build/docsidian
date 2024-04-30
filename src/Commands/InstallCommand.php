@@ -4,8 +4,9 @@ namespace ArtisanBuild\Docsidian\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
-use function Laravel\Prompts\text;
+
 use function Laravel\Prompts\select;
+use function Laravel\Prompts\text;
 
 class InstallCommand extends Command
 {
@@ -25,12 +26,12 @@ class InstallCommand extends Command
             label: 'Where would you like us to place the rendered HTML for your documentation relative to your resources/views directory?',
             default: 'views/docs',
             hint: 'We will pass this to resource_path() in the generated config file.'
-         );
+        );
 
         $config['folio_uri'] = text(
             label: 'What should we set as the uri for your docs?',
             default: 'docs',
-            hint: 'Your docs will be visible at ' . config('app.url') . '/docs',
+            hint: 'Your docs will be visible at '.config('app.url').'/docs',
         );
 
         $config['default_visibility'] = select(

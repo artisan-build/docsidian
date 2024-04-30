@@ -10,8 +10,8 @@ use Illuminate\Support\Str;
 class SetBlockVisibility
 {
     public Collection $abilities;
-    public string $visibility = '';
 
+    public string $visibility = '';
 
     public function __construct()
     {
@@ -20,10 +20,10 @@ class SetBlockVisibility
 
     public function __invoke(DocumentationSite $site, Closure $next)
     {
-        $this->abilities = $this->abilities->filter(fn($ability) => $ability !== $site->configuration['default_visibility']);
+        $this->abilities = $this->abilities->filter(fn ($ability) => $ability !== $site->configuration['default_visibility']);
 
-        $site->blade_files->map(function($page) use ($site) {
-            $page->lines = $page->lines->map(function($line) use ($site) {
+        $site->blade_files->map(function ($page) {
+            $page->lines = $page->lines->map(function ($line) {
                 foreach ($this->abilities->toArray() as $ability) {
                     if ($line->hasTag("end-{$ability}")) {
                         $this->visibility = '';
@@ -33,7 +33,7 @@ class SetBlockVisibility
                     $line->content = implode(' ', [
                         "@can('docsidian-{$ability}')",
                         $line->content,
-                        "@endcan",
+                        '@endcan',
                     ]);
                 }
                 foreach ($this->abilities->toArray() as $ability) {
@@ -42,9 +42,11 @@ class SetBlockVisibility
                     }
                 }
                 $line->content = Str::replace(["#start-{$ability}", "#end-{$ability}"], '', $line->content);
+
                 return $line;
             });
         });
+
         return $next($site);
     }
 }

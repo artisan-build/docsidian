@@ -8,10 +8,10 @@ class GetPageTitles
 {
     public function __invoke(DocumentationSite $site, \Closure $next)
     {
-        $site->blade_files->map(function($page) {
+        $site->blade_files->map(function ($page) {
             $page->title = data_get($page->lines->where('token', 'h1')->first(), 'text', 'Untitled Page');
         });
+
         return $next($site);
     }
-
 }

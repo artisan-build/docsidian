@@ -14,11 +14,15 @@ use Symfony\Component\Finder\SplFileInfo;
 class DocumentationPage
 {
     public Collection $lines;
+
     public Collection $anchors;
 
     public string $original_content = '';
+
     public string $file_name;
+
     public string $parent;
+
     public string $blade_file;
 
     public string $title = '';
@@ -40,7 +44,7 @@ class DocumentationPage
         ]);
         $this->title = data_get($this->lines->where('token', 'h1')->first(), 'text', 'Untitled Page');
 
-        $this->uri = str_replace('.blade.php', '', '/' . implode('/', array_filter([$this->site->configuration['folio_uri'], $this->parent, $this->file_name])));
+        $this->uri = str_replace('.blade.php', '', '/'.implode('/', array_filter([$this->site->configuration['folio_uri'], $this->parent, $this->file_name])));
     }
 
     public function toHtml()
@@ -55,7 +59,7 @@ class DocumentationPage
         $this->original_content = $converter->convert($this->markdown_file->getContents());
 
         $this->lines = collect(explode(PHP_EOL, $this->original_content))
-            ->map(fn($line) => new DocumentationLine(page: $this, original_content: $line));
+            ->map(fn ($line) => new DocumentationLine(page: $this, original_content: $line));
     }
 
     public function write(): void

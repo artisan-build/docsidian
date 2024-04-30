@@ -2,11 +2,8 @@
 
 namespace ArtisanBuild\Docsidian\Actions;
 
-
-
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Str;
 
 class GetDefinedAbilities
 {
@@ -18,7 +15,7 @@ class GetDefinedAbilities
                 $abilities[] = str_replace('docsidian-', '', $key);
             }
         }
+
         return collect($abilities);
     }
-
 }

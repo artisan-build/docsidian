@@ -10,18 +10,18 @@ class AddNavigationToAllRenderedFiles
 {
     public function __invoke(DocumentationSite $site, \Closure $next)
     {
-        $navigation = json_decode(file_get_contents($site->configuration['folio_path'] . '/navigation.json'), true, 512, JSON_THROW_ON_ERROR);
+        $navigation = json_decode(file_get_contents($site->configuration['folio_path'].'/navigation.json'), true, 512, JSON_THROW_ON_ERROR);
 
-        $content = '<x-slot name="navigation"><ul><li><a href="/' . $site->configuration['folio_uri'] .'">Documentation Home</a></li>';
+        $content = '<x-slot name="navigation"><ul><li><a href="/'.$site->configuration['folio_uri'].'">Documentation Home</a></li>';
 
         foreach ($navigation as $item) {
-            $content .= '<li><a href="' . $item['uri'] . '">' . $item['title'] . '</a>';
+            $content .= '<li><a href="'.$item['uri'].'">'.$item['title'].'</a>';
         }
 
         $content .= '</ul></x-slot>';
 
-        $site->blade_files->map(fn($page) => $page->lines->push([
-            'content' => $content
+        $site->blade_files->map(fn ($page) => $page->lines->push([
+            'content' => $content,
         ]));
 
         return $next($site);

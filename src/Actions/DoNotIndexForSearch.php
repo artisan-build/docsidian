@@ -10,5 +10,4 @@ class DoNotIndexForSearch
     {
         return $next($site);
     }
-
 }

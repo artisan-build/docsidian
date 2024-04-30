@@ -12,10 +12,10 @@ use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\Extension\GithubFlavoredMarkdownExtension;
 use League\CommonMark\MarkdownConverter;
 
-
 class ParseMarkdownFiles
 {
     private MarkdownConverter $converter;
+
     public function __construct()
     {
         $environment = new Environment([]);
@@ -25,12 +25,13 @@ class ParseMarkdownFiles
 
         $this->converter = new MarkdownConverter($environment);
     }
+
     public function __invoke(DocumentationSite $site, \Closure $next)
     {
         $site->markdown_files->each(/**
          * @throws CommonMarkException
          */ function ($file) use ($site) {
-             $file_name = ltrim(str_replace($site->configuration['md_path'], '', str_replace('.md', '.blade.php', $file->getPathname())), '/');
+            $file_name = ltrim(str_replace($site->configuration['md_path'], '', str_replace('.md', '.blade.php', $file->getPathname())), '/');
 
             $site->blade_files->push(new DocumentationPage(
                 site: $this,
@@ -39,6 +40,7 @@ class ParseMarkdownFiles
                 parent: ltrim(str_replace($site->configuration['folio_path'], '', File::dirname($file_name)), '/')
             ));
         });
+
         return $next($site);
     }
 }

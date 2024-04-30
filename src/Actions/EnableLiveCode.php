@@ -12,7 +12,7 @@ class EnableLiveCode
     public function __invoke(DocumentationSite $site, Closure $next)
     {
         $site->blade_files->each(
-            fn($file) => $file->lines = $file->lines->map(fn($line) => $this->enableLiveCode($line)));
+            fn ($file) => $file->lines = $file->lines->map(fn ($line) => $this->enableLiveCode($line)));
 
         return $next($site);
     }
@@ -24,6 +24,7 @@ class EnableLiveCode
                 $line->content = str_replace('</pre>', '', $line->content);
                 $line->content = str_replace('</code>', '', $line->content);
                 $this->live = false;
+
                 return $line;
             }
         }

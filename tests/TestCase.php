@@ -2,9 +2,9 @@
 
 namespace ArtisanBuild\Docsidian\Tests;
 
+use ArtisanBuild\Docsidian\DocsidianServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use ArtisanBuild\Docsidian\DocsidianServiceProvider;
 
 class TestCase extends Orchestra
 {

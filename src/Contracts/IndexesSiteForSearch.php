@@ -4,5 +4,4 @@ namespace ArtisanBuild\Docsidian\Contracts;
 
 interface IndexesSiteForSearch
 {
-
 }

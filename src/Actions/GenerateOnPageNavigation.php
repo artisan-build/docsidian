@@ -40,13 +40,13 @@ class GenerateOnPageNavigation
                     $item['id'],
                     '">',
                     $item['text'],
-                    '</a></li>'
+                    '</a></li>',
                 ]);
-
 
                 if ($section === $item['parent']) {
                     $html .= '</li>';
                 }
+
                 return $html;
             });
 
@@ -54,12 +54,12 @@ class GenerateOnPageNavigation
 
             $page->lines = $page->lines->map(function ($line) use ($html) {
                 if ($line->token === 'h1') {
-                    $line->content .= "\n" . $html;
+                    $line->content .= "\n".$html;
                 }
+
                 return $line;
             });
         });
-
 
         return $next($site);
     }
