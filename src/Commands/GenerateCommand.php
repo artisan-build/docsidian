@@ -8,6 +8,7 @@ use ArtisanBuild\Docsidian\Actions\DecorateRemainingHashTags;
 use ArtisanBuild\Docsidian\Actions\EnableLiveCode;
 use ArtisanBuild\Docsidian\Actions\EnsureAllHeadingsHaveAnId;
 use ArtisanBuild\Docsidian\Actions\GenerateOnPageNavigation;
+use ArtisanBuild\Docsidian\Actions\HandleWikiStyleImages;
 use ArtisanBuild\Docsidian\Actions\RemoveEmptyParagraphs;
 use ArtisanBuild\Docsidian\Actions\SetBlockVisibility;
 use ArtisanBuild\Docsidian\Actions\SetPageVisibility;
@@ -46,6 +47,7 @@ class GenerateCommand extends Command
                     EnsureAllHeadingsHaveAnId::class,
                     GenerateOnPageNavigation::class, //todo
                     RemoveEmptyParagraphs::class,
+                    HandleWikiStyleImages::class,
                     AddNavigationToAllRenderedFiles::class,
                     WrapEachFileInTheLayoutComponent::class,
                     WriteEachBladeFileToTheFolioPath::class,
