@@ -23,7 +23,7 @@ class DocumentationSite
         $this->markdown_path = $this->configuration['md_path'];
 
         $this->obsidian_configuration = new ObsidianConfiguration($this->configuration);
-        $this->blade_files = collect(File::allFiles($this->configuration['md_path']))->filter(fn($file) => str_ends_with($file->getFilename(), '.md'))->map(function ($file) {
+        $this->blade_files = collect(File::allFiles($this->configuration['md_path']))->filter(fn ($file) => str_ends_with($file->getFilename(), '.md'))->map(function ($file) {
             return new DocumentationPage(site: $this, markdown_file: $file);
         });
         $this->navigation = collect();

@@ -55,9 +55,9 @@ class DocsidianServiceProvider extends PackageServiceProvider
         }
 
         if (app(GetDefinedAbilities::class)()->isEmpty()) {
-            Gate::define('docsidian-public', fn(?Authenticatable $user) => true);
-            Gate::define('docsidian-protected', fn(?Authenticatable $user) => $user instanceof Authenticatable);
-            Gate::define('docsidian-private', fn(?Authenticatable $user) => false);
+            Gate::define('docsidian-public', fn (?Authenticatable $user) => true);
+            Gate::define('docsidian-protected', fn (?Authenticatable $user) => $user instanceof Authenticatable);
+            Gate::define('docsidian-private', fn (?Authenticatable $user) => false);
         }
 
     }

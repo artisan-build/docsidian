@@ -4,13 +4,11 @@ namespace ArtisanBuild\Docsidian;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
-use Jnjxp\CommonMarkWikiLinks\WikiLinkExtension;
 use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\Attributes\AttributesExtension;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\Extension\GithubFlavoredMarkdownExtension;
 use League\CommonMark\MarkdownConverter;
-use N0sz\CommonMark\Picture\PictureExtension;
 use Symfony\Component\Finder\SplFileInfo;
 
 class DocumentationPage

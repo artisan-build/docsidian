@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\File;
 class ObsidianConfiguration
 {
     public string $css;
+
     public string $attachment_path;
 
     /* TODO: It would be nice to let users use their Obsidian theme's CSS to style their documentation site. To
@@ -19,7 +20,7 @@ class ObsidianConfiguration
     {
         // Calculate the full path to the Obsidian configuration folder
         $configuration_path = data_get($configuration, 'obsidian_config');
-        if (!str_starts_with($configuration_path, base_path())) {
+        if (! str_starts_with($configuration_path, base_path())) {
             $configuration_path = base_path($configuration_path);
         }
 
@@ -37,7 +38,7 @@ class ObsidianConfiguration
             $configuration_path,
             'themes',
             data_get($config, 'appearance.cssTheme'),
-            'theme.css'
+            'theme.css',
         ]);
     }
 }

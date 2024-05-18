@@ -23,6 +23,7 @@ class HandleWikiStyleImages
     public function transformImages(DocumentationLine $line)
     {
         $line->content = $this->convertWikiImagesToHtml($line->content);
+
         return $line;
 
     }
@@ -33,7 +34,7 @@ class HandleWikiStyleImages
         preg_match($pattern, $markdown, $matches);
 
         if (isset($matches[1])) {
-            $markdown = str_replace($matches[0], '<img src="/' . $this->image_path . '/' . $matches[1] . '" alt="">', $markdown);
+            $markdown = str_replace($matches[0], '<img src="/'.$this->image_path.'/'.$matches[1].'" alt="">', $markdown);
         }
 
         return $markdown;
