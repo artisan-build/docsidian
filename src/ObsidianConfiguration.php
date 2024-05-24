@@ -2,8 +2,6 @@
 
 namespace ArtisanBuild\Docsidian;
 
-use Illuminate\Support\Facades\File;
-
 class ObsidianConfiguration
 {
     public string $css;
@@ -30,7 +28,7 @@ class ObsidianConfiguration
         ];
 
         $this->attachment_path = implode('/', [
-            data_get($configuration, 'folio_uri'),
+            data_get($configuration, 'md_path'),
             str_replace('./', '', data_get($config, 'app.attachmentFolderPath')),
         ]);
 

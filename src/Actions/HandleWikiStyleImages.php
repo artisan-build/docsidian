@@ -4,6 +4,7 @@ namespace ArtisanBuild\Docsidian\Actions;
 
 use ArtisanBuild\Docsidian\DocumentationLine;
 use ArtisanBuild\Docsidian\DocumentationSite;
+use ArtisanBuild\Docsidian\EmbeddedMedia;
 use Closure;
 
 class HandleWikiStyleImages
@@ -33,8 +34,11 @@ class HandleWikiStyleImages
         $pattern = '/!\[\[([^\]]+)\]\]/';
         preg_match($pattern, $markdown, $matches);
 
+
+
         if (isset($matches[1])) {
-            $markdown = str_replace($matches[0], '<img src="/'.$this->image_path.'/'.$matches[1].'" alt="">', $markdown);
+            $image = app(EmbeddedMedia::class)->make($matches[1]);
+            $markdown = str_replace($matches[0], '<img src="{{ asset(\'' . $image->uri . '\') }}" alt="">', $markdown);
         }
 
         return $markdown;

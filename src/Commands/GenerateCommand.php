@@ -6,6 +6,7 @@ use ArtisanBuild\Docsidian\Actions\AddNavigationToAllRenderedFiles;
 use ArtisanBuild\Docsidian\Actions\BuildNavigation;
 use ArtisanBuild\Docsidian\Actions\DecorateRemainingHashTags;
 use ArtisanBuild\Docsidian\Actions\EnableLiveCode;
+use ArtisanBuild\Docsidian\Actions\EnableMermaid;
 use ArtisanBuild\Docsidian\Actions\EnsureAllHeadingsHaveAnId;
 use ArtisanBuild\Docsidian\Actions\GenerateOnPageNavigation;
 use ArtisanBuild\Docsidian\Actions\HandleWikiStyleImages;
@@ -17,6 +18,7 @@ use ArtisanBuild\Docsidian\Actions\WriteEachBladeFileToTheFolioPath;
 use ArtisanBuild\Docsidian\Contracts\HighlightsCodeBlocks;
 use ArtisanBuild\Docsidian\Contracts\IndexesSiteForSearch;
 use ArtisanBuild\Docsidian\DocumentationSite;
+use ArtisanBuild\Docsidian\EmbeddedMedia;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Pipeline;
@@ -36,12 +38,15 @@ class GenerateCommand extends Command
             File::ensureDirectoryExists($site['folio_path']);
             File::put(implode('/', [$site['folio_path'], 'index.blade.php']), '<p>Please add an index.md file to your markdown directory.</p>');
 
+            app()->when(EmbeddedMedia::class)->needs('$config')->give($site);
+
             Pipeline::send(new DocumentationSite($site))
                 ->through([
                     BuildNavigation::class,
                     SetPageVisibility::class,
                     SetBlockVisibility::class,
                     EnableLiveCode::class,
+                    EnableMermaid::class,
                     HighlightsCodeBlocks::class,
                     DecorateRemainingHashTags::class,
                     EnsureAllHeadingsHaveAnId::class,
