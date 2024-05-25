@@ -27,7 +27,8 @@ class HighlightCodeWithTempest
             preg_match('/class="([^"]+)"/', $line->content, $matches);
             $this->language = str_replace('language-', '', $matches[1]);
         }
-        if ($this->language === 'live') {
+
+        if ($this->language === 'live' || $this->language === 'mermaid') {
             $this->language = null;
         }
 
@@ -39,7 +40,7 @@ class HighlightCodeWithTempest
                 $this->code_block = str_replace([
                     '<pre>',
                     '</pre>',
-                    '</code>',
+                    //'</code>',
                     '<code class="language-'.$this->language.'">',
                 ], '', $this->code_block);
 

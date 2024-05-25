@@ -15,11 +15,15 @@ class DocumentationSite
 
     public Collection $navigation;
 
+    public ObsidianConfiguration $obsidian_configuration;
+
     public function __construct(public array $configuration)
     {
         $this->folio_path = $this->configuration['folio_path'];
         $this->markdown_path = $this->configuration['md_path'];
-        $this->blade_files = collect(File::allFiles($this->configuration['md_path']))->map(function ($file) {
+
+        $this->obsidian_configuration = new ObsidianConfiguration($this->configuration);
+        $this->blade_files = collect(File::allFiles($this->configuration['md_path']))->filter(fn ($file) => str_ends_with($file->getFilename(), '.md'))->map(function ($file) {
             return new DocumentationPage(site: $this, markdown_file: $file);
         });
         $this->navigation = collect();
