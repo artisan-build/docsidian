@@ -28,7 +28,6 @@ class HighlightCodeWithTempest
             $this->language = str_replace('language-', '', $matches[1]);
         }
 
-
         if ($this->language === 'live' || $this->language === 'mermaid') {
             $this->language = null;
         }

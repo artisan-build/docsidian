@@ -19,7 +19,6 @@ class ObsidianConfiguration
         // Calculate the full path to the Obsidian configuration folder
         $configuration_path = data_get($configuration, 'obsidian_config');
 
-
         $config = [
             'app' => json_decode(file_get_contents(implode('/', [$configuration_path, 'app.json'])), true),
             'appearance' => json_decode(file_get_contents(implode('/', [$configuration_path, 'appearance.json'])), true),

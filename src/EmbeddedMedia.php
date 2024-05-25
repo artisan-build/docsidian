@@ -7,9 +7,13 @@ use Illuminate\Support\Facades\File;
 class EmbeddedMedia
 {
     public string $uri = '';
+
     public string $path = '';
+
     public string $source_path = '';
+
     public bool $exists = false;
+
     public ObsidianConfiguration $obsidian;
 
     public function __construct(public array $config)
@@ -26,7 +30,7 @@ class EmbeddedMedia
 
         $this->source_path = implode('/', [
             $this->obsidian->attachment_path,
-            $path
+            $path,
         ]);
 
         $this->uri = implode('/', [
@@ -34,8 +38,7 @@ class EmbeddedMedia
             $path,
         ]);
 
-        throw_if(!file_exists($this->source_path), "{$this->source_path} does not exist");
-
+        throw_if(! file_exists($this->source_path), "{$this->source_path} does not exist");
 
         $this->exists = file_exists($this->path);
 
@@ -45,5 +48,4 @@ class EmbeddedMedia
 
         return $this;
     }
-
 }

@@ -34,11 +34,9 @@ class HandleWikiStyleImages
         $pattern = '/!\[\[([^\]]+)\]\]/';
         preg_match($pattern, $markdown, $matches);
 
-
-
         if (isset($matches[1])) {
             $image = app(EmbeddedMedia::class)->make($matches[1]);
-            $markdown = str_replace($matches[0], '<img src="{{ asset(\'' . $image->uri . '\') }}" alt="">', $markdown);
+            $markdown = str_replace($matches[0], '<img src="{{ asset(\''.$image->uri.'\') }}" alt="">', $markdown);
         }
 
         return $markdown;
