@@ -30,11 +30,9 @@ class EmbeddedMedia
         ]);
 
         $this->uri = implode('/', [
-            str_replace(public_path(), '', $this->config['media_path']),
+            str_replace(public_path(), '', rtrim($this->config['media_path'], '/')),
             $path,
         ]);
-
-        dump($this->path, $this->uri);
 
         throw_if(!file_exists($this->source_path), "{$this->source_path} does not exist");
 

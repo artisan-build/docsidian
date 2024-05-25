@@ -18,19 +18,17 @@ class ObsidianConfiguration
     {
         // Calculate the full path to the Obsidian configuration folder
         $configuration_path = data_get($configuration, 'obsidian_config');
-        if (! str_starts_with($configuration_path, base_path())) {
-            $configuration_path = base_path($configuration_path);
-        }
+
 
         $config = [
             'app' => json_decode(file_get_contents(implode('/', [$configuration_path, 'app.json'])), true),
             'appearance' => json_decode(file_get_contents(implode('/', [$configuration_path, 'appearance.json'])), true),
         ];
 
-        $this->attachment_path = implode('/', [
+        $this->attachment_path = implode('/', array_filter([
             data_get($configuration, 'md_path'),
             str_replace('./', '', data_get($config, 'app.attachmentFolderPath')),
-        ]);
+        ]));
 
         $this->css = implode('/', [
             $configuration_path,
