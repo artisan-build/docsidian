@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 class DiscoverCommand extends Command
 {
     public $signature = 'docsidian:discover {directory?}';
+
     public $description = 'Create a record for every folder in the markdown folder';
 
     public function handle(): int
@@ -42,6 +43,7 @@ class DiscoverCommand extends Command
 
             $this->info("Created record for {$key}");
         }
+
         return self::SUCCESS;
     }
 

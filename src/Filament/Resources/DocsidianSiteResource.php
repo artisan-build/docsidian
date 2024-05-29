@@ -41,7 +41,7 @@ class DocsidianSiteResource extends Resource
                 Tables\Columns\TextColumn::make('weight'),
                 Tables\Columns\TextColumn::make('name'),
                 // TODO: I shouldn't have to do this. The casting should work.
-                Tables\Columns\TextColumn::make('status')->getStateUsing(fn($record) => $record->status->name),
+                Tables\Columns\TextColumn::make('status')->getStateUsing(fn ($record) => $record->status->name),
             ])
             ->filters([
                 //

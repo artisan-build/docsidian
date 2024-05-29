@@ -10,9 +10,4 @@ class DocsidianPage extends Model
 {
     use HasFactory;
     use Searchable;
-
-
-
-
-
 }

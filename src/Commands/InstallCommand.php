@@ -54,8 +54,8 @@ class InstallCommand extends Command
 
         File::put(config_path('docsidian.php'), $configContents);
 
-        $this->callSilently("vendor:publish", [
-            '--tag' => "docsidian-migrations",
+        $this->callSilently('vendor:publish', [
+            '--tag' => 'docsidian-migrations',
         ]);
 
         $this->call('migrate');
