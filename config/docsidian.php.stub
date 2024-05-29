@@ -2,17 +2,11 @@
 
 return [
     'installed' => true,
-    // You can define as many documentation sites as you want below. Just make sure that each has unique paths and uri.
-    'sites' => [
-        'default' => [
-            'default_visibility' => '{{ default_visibility }}',
-            'folio_middleware' => ['web'],
-            'folio_path' => resource_path('{{ folio_path }}'),
-            'folio_uri' => '{{ folio_uri }}',
-            'layout' => 'docsidian',
-            'md_path' => base_path('{{ md_path }}'),
-            'md_repo' => 'artisan-build/docsidian-docs', // Only applies to hosted docs
-        ],
-    ],
-
+    'default_visibility' => '{{ default_visibility }}',
+    'folio_middleware' => ['web'],
+    'folio_path' => resource_path('{{ folio_path }}'),
+    'folio_uri' => '{{ folio_uri }}',
+    'layout' => 'docsidian',
+    'md_path' => base_path('{{ md_path }}'),
+    'obsidian_config' => base_path('{{ md_path }}/.obsidian')
 ];

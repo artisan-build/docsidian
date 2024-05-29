@@ -1,5 +1,7 @@
 <?php
 
+use ArtisanBuild\Docsidian\Models\DocsidianSite;
+use ArtisanBuild\Docsidian\SiteStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -8,11 +10,39 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('docsidian_table', function (Blueprint $table) {
+        Schema::create('docsidian_sites', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('description')->nullable();
+            $table->string('image')->nullable();
+            $table->unsignedInteger('weight')->nullable();
+            $table->string('status')->default(SiteStatus::Hidden->name);
+            $table->string('default_visibility')->default('public');
+            $table->json('folio_middleware');
+            $table->string('folio_path');
+            $table->string('folio_uri');
+            $table->string('layout');
+            $table->string('md_path');
+            $table->string('obsidian_config');
 
-            // add fields
+            /*
+             * 'folio_middleware' => ['web'],
+            'folio_path' => resource_path('views/docs'),
+            'folio_uri' => 'docs',
+            'layout' => 'docsidian',
+            'md_path' => base_path('documentation'),
+            'md_repo' => 'artisan-build/docsidian-docs',
+             */
+            $table->timestamps();
+        });
 
+        Schema::create('docsidian_pages', function (Blueprint $table) {
+            $table->id();
+            $table->foreignIdFor(DocsidianSite::class);
+            $table->string('uri');
+            $table->text('public')->nullable();
+            $table->text('protected')->nullable();
+            $table->text('private')->nullable();
             $table->timestamps();
         });
     }

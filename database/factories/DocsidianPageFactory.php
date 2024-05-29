@@ -2,12 +2,13 @@
 
 namespace ArtisanBuild\Docsidian\Database\Factories;
 
+use ArtisanBuild\Docsidian\Models\DocsidianPage;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/*
-class ModelFactory extends Factory
+
+class DocsidianPageFactory extends Factory
 {
-    protected $model = YourModel::class;
+    protected $model = DocsidianPage::class;
 
     public function definition()
     {
@@ -16,4 +17,3 @@ class ModelFactory extends Factory
         ];
     }
 }
-*/
