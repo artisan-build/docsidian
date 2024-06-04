@@ -70,9 +70,6 @@ class DocsidianServiceProvider extends PackageServiceProvider
                 ->middleware($site->folio_middleware);
         }
 
-
-
-
         if (app(GetDefinedAbilities::class)()->isEmpty()) {
             Gate::define('docsidian-public', fn (?Authenticatable $user) => true);
             Gate::define('docsidian-protected', fn (?Authenticatable $user) => $user instanceof Authenticatable);
