@@ -8,5 +8,6 @@ return [
     'folio_uri' => '{{ folio_uri }}',
     'layout' => 'docsidian',
     'md_path' => base_path('{{ md_path }}'),
-    'obsidian_config' => base_path('{{ md_path }}/.obsidian')
+    'obsidian_config' => base_path('{{ md_path }}/.obsidian'),
+    'media_path' => public_path('storage/docsidian'),
 ];
