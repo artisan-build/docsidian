@@ -24,7 +24,7 @@ class EmbeddedMedia
     public function make(string $path)
     {
         $this->path = implode('/', [
-            $this->config['media_path'],
+            config('docsidian.media_path'),
             $path,
         ]);
 
@@ -34,7 +34,7 @@ class EmbeddedMedia
         ]);
 
         $this->uri = implode('/', [
-            str_replace(public_path(), '', rtrim($this->config['media_path'], '/')),
+            str_replace(public_path(), '', rtrim(config('docsidian.media_path'), '/')),
             $path,
         ]);
 
