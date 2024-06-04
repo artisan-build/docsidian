@@ -48,11 +48,17 @@ class InstallCommand extends Command
 
         $configContents = File::get(__DIR__.'/../../config/docsidian.php.stub');
 
-        foreach (['md_path', 'folio_uri', 'folio_path'] as $key) {
+        foreach (['default_visibility', 'md_path', 'folio_uri', 'folio_path'] as $key) {
             $configContents = str_replace("{{ $key }}", $config[$key], $configContents);
         }
 
         File::put(config_path('docsidian.php'), $configContents);
+
+        $this->callSilently('vendor:publish', [
+            '--tag' => 'docsidian-migrations',
+        ]);
+
+        $this->call('migrate');
 
         return self::SUCCESS;
     }

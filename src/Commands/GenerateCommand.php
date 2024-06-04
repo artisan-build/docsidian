@@ -19,6 +19,7 @@ use ArtisanBuild\Docsidian\Contracts\HighlightsCodeBlocks;
 use ArtisanBuild\Docsidian\Contracts\IndexesSiteForSearch;
 use ArtisanBuild\Docsidian\DocumentationSite;
 use ArtisanBuild\Docsidian\EmbeddedMedia;
+use ArtisanBuild\Docsidian\Models\DocsidianSite;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Pipeline;
@@ -31,8 +32,10 @@ class GenerateCommand extends Command
 
     public function handle(): int
     {
-        foreach (config('docsidian.sites') as $key => $site) {
-            $this->info("Generating {$key}");
+        foreach (DocsidianSite::all() as $site) {
+            $this->info("Generating {$site->name}");
+
+            $site = $site->toArray();
 
             File::deleteDirectory($site['folio_path']);
             File::ensureDirectoryExists($site['folio_path']);
