@@ -24,15 +24,6 @@ return new class extends Migration
             $table->string('layout');
             $table->string('md_path');
             $table->string('obsidian_config');
-
-            /*
-             * 'folio_middleware' => ['web'],
-            'folio_path' => resource_path('views/docs'),
-            'folio_uri' => 'docs',
-            'layout' => 'docsidian',
-            'md_path' => base_path('documentation'),
-            'md_repo' => 'artisan-build/docsidian-docs',
-             */
             $table->timestamps();
         });
 
