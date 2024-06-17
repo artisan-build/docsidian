@@ -45,6 +45,8 @@ class DocumentationPage
         $this->title = data_get($this->lines->where('token', 'h1')->first(), 'text', 'Untitled Page');
 
         $this->uri = str_replace('.blade.php', '', '/'.implode('/', array_filter([$this->site->configuration['folio_uri'], $this->parent, $this->file_name])));
+        // I shouldn't  have to do this
+        $this->uri = str_replace('//', '/', $this->uri);
     }
 
     public function toHtml()

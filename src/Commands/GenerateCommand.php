@@ -13,6 +13,7 @@ use ArtisanBuild\Docsidian\Actions\HandleWikiStyleImages;
 use ArtisanBuild\Docsidian\Actions\RemoveEmptyParagraphs;
 use ArtisanBuild\Docsidian\Actions\SetBlockVisibility;
 use ArtisanBuild\Docsidian\Actions\SetPageVisibility;
+use ArtisanBuild\Docsidian\Actions\TranformInternalLinks;
 use ArtisanBuild\Docsidian\Actions\WrapEachFileInTheLayoutComponent;
 use ArtisanBuild\Docsidian\Actions\WriteEachBladeFileToTheFolioPath;
 use ArtisanBuild\Docsidian\Contracts\HighlightsCodeBlocks;
@@ -52,6 +53,7 @@ class GenerateCommand extends Command
                     EnableMermaid::class,
                     HighlightsCodeBlocks::class,
                     DecorateRemainingHashTags::class,
+                    TranformInternalLinks::class,
                     EnsureAllHeadingsHaveAnId::class,
                     GenerateOnPageNavigation::class, //todo
                     RemoveEmptyParagraphs::class,
