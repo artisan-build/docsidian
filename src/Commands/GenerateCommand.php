@@ -10,6 +10,7 @@ use ArtisanBuild\Docsidian\Actions\EnableMermaid;
 use ArtisanBuild\Docsidian\Actions\EnsureAllHeadingsHaveAnId;
 use ArtisanBuild\Docsidian\Actions\GenerateOnPageNavigation;
 use ArtisanBuild\Docsidian\Actions\HandleWikiStyleImages;
+use ArtisanBuild\Docsidian\Actions\EscapeBladeBreakingCharacters;
 use ArtisanBuild\Docsidian\Actions\RemoveEmptyParagraphs;
 use ArtisanBuild\Docsidian\Actions\SetBlockVisibility;
 use ArtisanBuild\Docsidian\Actions\SetPageVisibility;
@@ -46,6 +47,7 @@ class GenerateCommand extends Command
 
             Pipeline::send(new DocumentationSite($site))
                 ->through([
+                    EscapeBladeBreakingCharacters::class,
                     BuildNavigation::class,
                     SetPageVisibility::class,
                     SetBlockVisibility::class,

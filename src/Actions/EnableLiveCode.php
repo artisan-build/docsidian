@@ -23,6 +23,8 @@ class EnableLiveCode
             if ($this->live) {
                 $line->content = str_replace('</pre>', '', $line->content);
                 $line->content = str_replace('</code>', '', $line->content);
+                $line->content = str_replace('@@', '@', $line->content);
+                $line->content = str_replace('@{{', '{{', $line->content);
                 $this->live = false;
 
                 return $line;
