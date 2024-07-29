@@ -20,7 +20,6 @@ class EscapeBladeBreakingCharacters
         $line->content = str_replace('@', '@@', $line->content);
         $line->content = str_replace('{{', '@{{', $line->content);
 
-
         return $line;
 
     }

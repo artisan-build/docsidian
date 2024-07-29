@@ -16,36 +16,35 @@ class AddNavigationToAllRenderedFiles
     {
         $this->content = collect();
     }
+
     public function __invoke(DocumentationSite $site, \Closure $next)
     {
         $navigation = collect(json_decode(file_get_contents($site->configuration['folio_path'].'/navigation.json'), true, 512, JSON_THROW_ON_ERROR));
 
-        $this->content->push('<x-slot name="navigation"><ul><li><a href="/'.$site->configuration['folio_uri'].'">' . $site->configuration['name'] . '</a></li>');
+        $this->content->push('<x-slot name="navigation"><ul><li><a href="/'.$site->configuration['folio_uri'].'">'.$site->configuration['name'].'</a></li>');
 
-        $navigation->where('parent', '')->each(function($item) use ($navigation) {
+        $navigation->where('parent', '')->each(function ($item) use ($navigation) {
             $this->content->push('<li><a href="'.$item['uri'].'">'.$item['title'].'</a>');
             $uri = explode('/', $item['uri']);
             $parent = '/'.last($uri);
-            $navigation->where('parent', $parent)->each(function($child) {
+            $navigation->where('parent', $parent)->each(function ($child) {
                 $this->content->push('<li><a class="ml-4" href="'.$child['uri'].'">&raquo; '.$child['title'].'</a>');
             });
         });
-       /* $navigation->each(function($item) {
-            $parent = Str::uuid();
-            if ($item['parent'] === '') {
-                $uri = explode('/', $item['uri']);
-                array_pop($uri);
-                $parent = '/'.last($uri);
-                dump($parent);
+        /* $navigation->each(function($item) {
+             $parent = Str::uuid();
+             if ($item['parent'] === '') {
+                 $uri = explode('/', $item['uri']);
+                 array_pop($uri);
+                 $parent = '/'.last($uri);
+                 dump($parent);
 
-            }
+             }
 
-            if ($item['parent'] === $parent) {
-                $this->content->push('<li><a class="ml-4" href="'.$item['uri'].'">'.$item['title'].'</a>');
-            }
-        });*/
-
-
+             if ($item['parent'] === $parent) {
+                 $this->content->push('<li><a class="ml-4" href="'.$item['uri'].'">'.$item['title'].'</a>');
+             }
+         });*/
 
         $this->content->push('</ul></x-slot>');
 

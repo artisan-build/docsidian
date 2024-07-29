@@ -2,6 +2,4 @@
 
 namespace ArtisanBuild\Docsidian\Contracts;
 
-interface HighlightsCodeBlocks
-{
-}
+interface HighlightsCodeBlocks {}

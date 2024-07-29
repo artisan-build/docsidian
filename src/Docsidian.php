@@ -2,6 +2,4 @@
 
 namespace ArtisanBuild\Docsidian;
 
-class Docsidian
-{
-}
+class Docsidian {}
