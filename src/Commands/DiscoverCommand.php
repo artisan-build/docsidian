@@ -16,6 +16,7 @@ class DiscoverCommand extends Command
 
     public function handle(): int
     {
+
         $directories = File::directories($this->argument('directory') ?? config('docsidian.md_path'));
 
         foreach ($directories as $directory) {
@@ -42,6 +43,19 @@ class DiscoverCommand extends Command
             File::ensureDirectoryExists($site->folio_path);
 
             $this->info("Created record for {$key}");
+        }
+
+
+
+        // Now clean up any deleted directories
+        foreach (DocsidianSite::get() as $site) {
+            if (is_dir($site->md_path)) {
+                continue;
+            }
+
+            $this->info("Deleted {$site->md_path}");
+
+            $site->delete();
         }
 
         return self::SUCCESS;

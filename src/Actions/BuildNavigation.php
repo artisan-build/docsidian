@@ -27,7 +27,7 @@ class BuildNavigation
             $site->blade_files->each(fn ($page) => $page->lines->each(fn ($line) => $line->stripTag((string) $weight)));
         });
 
-        File::put($site->configuration['folio_path'].'/navigation.json', $navigation->sortBy('weight')->filter(fn ($item) => $item['weight'] !== null)->toJson(JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES));
+        File::put($site->configuration['folio_path'].'/navigation.json', $navigation->sortBy('weight')->filter(fn ($item) => $item['weight'] !== null)->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
 
         return $next($site);
     }
@@ -36,6 +36,7 @@ class BuildNavigation
     {
         $uri = explode('/', $page->uri);
         array_pop($uri);
+
         return ltrim('/', str_replace($site->configuration['folio_uri'], '', implode('/', $uri)));
     }
 

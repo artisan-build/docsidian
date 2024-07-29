@@ -13,6 +13,7 @@ class TranformInternalLinks
             $page->lines = $page->lines->map(function ($line) {
                 $line->content = str_replace('index.md"', '"', $line->content);
                 $line->content = str_replace('.md"', '"', $line->content);
+
                 return $line;
             });
         });
