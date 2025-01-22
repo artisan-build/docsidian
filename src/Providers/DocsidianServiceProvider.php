@@ -53,8 +53,8 @@ class DocsidianServiceProvider extends ServiceProvider
         $this->app->bindIf(DecoratesBlockQuoteCallouts::class, DecorateBlockQuoteCallouts::class);
         $this->app->bindIf(TemporarilyRemovesCodeBlocks::class, TemporarilyRemoveCodeBlocks::class);
         $this->app->bindIf(RestoresCodeBlocks::class, RestoreCodeBlocks::class);
-        $this->app->bind('shortcodes', fn(): array => collect(File::files(config('docsidian.shortcode_path')))
-            ->mapWithKeys(fn($file, $key) => [
+        $this->app->bind('shortcodes', fn (): array => collect(File::files(config('docsidian.shortcode_path')))
+            ->mapWithKeys(fn ($file, $key) => [
                 Str::slug(Str::headline($file->getFilenameWithoutExtension())) => implode('\\', [config('docsidian.shortcode_namespace'), $file->getFilenameWithoutExtension()]),
             ])->toArray());
 
