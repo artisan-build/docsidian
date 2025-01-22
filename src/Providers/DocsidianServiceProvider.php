@@ -35,6 +35,7 @@ use Illuminate\Support\Str;
 
 class DocsidianServiceProvider extends ServiceProvider
 {
+    #[\Override]
     public function register(): void
     {
         $this->mergeConfigFrom(__DIR__.'/../../config/docsidian.php', 'docsidian');
@@ -52,15 +53,10 @@ class DocsidianServiceProvider extends ServiceProvider
         $this->app->bindIf(DecoratesBlockQuoteCallouts::class, DecorateBlockQuoteCallouts::class);
         $this->app->bindIf(TemporarilyRemovesCodeBlocks::class, TemporarilyRemoveCodeBlocks::class);
         $this->app->bindIf(RestoresCodeBlocks::class, RestoreCodeBlocks::class);
-        $this->app->bind('shortcodes', function (): array {
-
-            return collect(File::files(config('docsidian.shortcode_path')))
-                ->mapWithKeys(function ($file, $key) {
-                    return [
-                        Str::slug(Str::headline($file->getFilenameWithoutExtension())) => implode('\\', [config('docsidian.shortcode_namespace'), $file->getFilenameWithoutExtension()]),
-                    ];
-                })->toArray();
-        });
+        $this->app->bind('shortcodes', fn(): array => collect(File::files(config('docsidian.shortcode_path')))
+            ->mapWithKeys(fn($file, $key) => [
+                Str::slug(Str::headline($file->getFilenameWithoutExtension())) => implode('\\', [config('docsidian.shortcode_namespace'), $file->getFilenameWithoutExtension()]),
+            ])->toArray());
 
     }
 

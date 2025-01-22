@@ -25,7 +25,7 @@ class TemporarilyRemoveCodeBlocks implements TemporarilyRemovesCodeBlocks
         $pres = $dom->getElementsByTagName('pre');
 
         $replacements = [];
-        foreach ($pres as $index => $pre) {
+        foreach ($pres as $pre) {
             $key = 'CODE_BLOCK_'.Str::uuid()->toString();
 
             // Store contents in the Laravel cache or context
