@@ -31,7 +31,7 @@ use ArtisanBuild\Docsidian\Pipeline\TemporarilyRemoveCodeBlocks;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Str;
+use Symfony\Component\Finder\SplFileInfo;
 
 class DocsidianServiceProvider extends ServiceProvider
 {
@@ -54,9 +54,15 @@ class DocsidianServiceProvider extends ServiceProvider
         $this->app->bindIf(TemporarilyRemovesCodeBlocks::class, TemporarilyRemoveCodeBlocks::class);
         $this->app->bindIf(RestoresCodeBlocks::class, RestoreCodeBlocks::class);
         $this->app->bind('shortcodes', fn (): array => collect(File::files(config('docsidian.shortcode_path')))
-            ->mapWithKeys(fn ($file, $key) => [
-                Str::slug(Str::headline($file->getFilenameWithoutExtension())) => implode('\\', [config('docsidian.shortcode_namespace'), $file->getFilenameWithoutExtension()]),
-            ])->toArray());
+            ->mapWithKeys(function (SplFileInfo $file, int $k): array {
+                $key = str($file->getFilenameWithoutExtension())->headline()->slug()->toString();
+                $value = implode('\\', [
+                    config('docsidian.shortcode_namespace'),
+                    $file->getFilenameWithoutExtension(),
+                ]);
+
+                return [$key => $value];
+            })->toArray());
 
     }
 
