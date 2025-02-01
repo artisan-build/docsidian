@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-use ArtisanBuild\Docsidian\DocsidianPage as Page;
+use ArtisanBuild\Docsidian\DocsidianPage;
 use ArtisanBuild\Docsidian\Pipeline\DecorateHashTagsAsFluxBadges;
 
 // TODO: Get Pest to be aware of Expectations.php so this can live there.
 expect()->extend('toProduce', function (string $expected_output, callable $using): void {
-    $page = new Page($this->value);
-    $actual_output = $using($page, fn (Page $page) => $page)->markdown;
+    $page = new DocsidianPage($this->value);
+    $returningSelf = fn (DocsidianPage $page): DocsidianPage => $page;
+    $actual_output = $using($page, $returningSelf)->markdown;
 
     expect($actual_output)->toBe($expected_output);
 });
