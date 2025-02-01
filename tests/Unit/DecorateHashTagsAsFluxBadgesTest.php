@@ -17,7 +17,7 @@ expect()->extend('toProduce', function (string $expected_output, callable $using
 
 describe('Decorate Hash Tags As Flux Badges', function (): void {
     beforeEach(function (): void {
-        $this->action = new DecorateHashTagsAsFluxBadges();
+        $this->action = new DecorateHashTagsAsFluxBadges;
     });
 
     it('works', function (): void {
