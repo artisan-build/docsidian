@@ -14,8 +14,8 @@ class HandleShortCodes implements HandlesShortCodes
     public function __invoke(DocsidianPage $page, Closure $next): DocsidianPage
     {
         $replace = collect($this->extractShortcodes($page->markdown))
-            ->filter(fn ($code) => array_key_exists($code['key'], app('shortcodes')))
-            ->mapWithKeys(fn ($code, $key) => [$code['original'] => app(app('shortcodes')[$code['key']])(...$code['attributes'])])
+            ->filter(fn (array $code): bool => array_key_exists($code['key'], app('shortcodes')))
+            ->mapWithKeys(fn (array $code, int $key): array => [$code['original'] => app(app('shortcodes')[$code['key']])(...$code['attributes'])])
             ->toArray();
 
         $page->markdown = Str::replace(array_keys($replace), array_values($replace), $page->markdown);
@@ -23,6 +23,16 @@ class HandleShortCodes implements HandlesShortCodes
         return $next($page);
     }
 
+    /**
+     * @return array<
+     *   array-key,
+     *   array{
+     *     key: string,
+     *     attributes: array<string, string>,
+     *     original: string,
+     *   }
+     * >
+     */
     public function extractShortcodes(string $text): array
     {
         $pattern = '/\[(\w[\w-]*)\s*([^]]*)]/';

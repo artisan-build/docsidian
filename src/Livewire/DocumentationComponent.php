@@ -16,6 +16,7 @@ use ArtisanBuild\Docsidian\Contracts\StylesLinks;
 use ArtisanBuild\Docsidian\Contracts\StylesPlainText;
 use ArtisanBuild\Docsidian\Contracts\TemporarilyRemovesCodeBlocks;
 use ArtisanBuild\Docsidian\DocsidianPage;
+use Illuminate\Contracts\View\View as ViewContract;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\File;
@@ -37,7 +38,7 @@ class DocumentationComponent extends Component
 
     protected string $template = 'docsidian::documentation';
 
-    protected $page;
+    protected DocsidianPage $page;
 
     public function mount(): void
     {
@@ -76,8 +77,8 @@ class DocumentationComponent extends Component
 
         // Build sidebar navigation
         $navigation = collect(File::directories(config('docsidian.markdown_root')))
-            ->filter(fn ($folder) => File::exists(implode('/', [$folder, 'index.md'])))
-            ->map(function ($folder) {
+            ->filter(fn (string $folder): bool => File::exists(implode('/', [$folder, 'index.md'])))
+            ->map(function (string $folder): array {
                 /** @var DocsidianPage $page */
                 $page = Pipeline::send(new DocsidianPage(File::get(implode('/', [$folder, 'index.md']))))
                     ->through([
@@ -96,7 +97,6 @@ class DocumentationComponent extends Component
             })->sortBy('weight');
 
         View::share('navigation', $navigation);
-
     }
 
     public function page(string $to): void
@@ -104,7 +104,7 @@ class DocumentationComponent extends Component
         $this->redirect($to, true);
     }
 
-    public function render()
+    public function render(): ViewContract
     {
         return view($this->template)->layout('docsidian::components.documentation-layout');
     }
