@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace ArtisanBuild\Docsidian\Livewire;
 
-use ArtisanBuild\Docsidian\Contracts\ConvertsMarkdownToHtml;
-use ArtisanBuild\Docsidian\Contracts\GetsTitle;
 use ArtisanBuild\Docsidian\DocsidianPage;
 use Illuminate\Contracts\View\View as ViewContract;
 use Illuminate\Routing\Route;
@@ -65,10 +63,7 @@ class DocumentationComponent extends Component
             ->map(function (string $folder): array {
                 /** @var DocsidianPage $page */
                 $page = Pipeline::send(new DocsidianPage(File::get(implode('/', [$folder, 'index.md']))))
-                    ->through([
-                        ConvertsMarkdownToHtml::class,
-                        GetsTitle::class,
-                    ])
+                    ->through(config('docsidian.navigation_transformations'))
                     ->thenReturn();
 
                 return [

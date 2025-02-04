@@ -2,17 +2,7 @@
 
 declare(strict_types=1);
 
-use ArtisanBuild\Docsidian\Contracts\ConvertsMarkdownToHtml;
-use ArtisanBuild\Docsidian\Contracts\DecoratesBlockQuoteCallouts;
-use ArtisanBuild\Docsidian\Contracts\DecoratesHashTags;
-use ArtisanBuild\Docsidian\Contracts\GeneratesOnPageNavigation;
-use ArtisanBuild\Docsidian\Contracts\GetsTitle;
-use ArtisanBuild\Docsidian\Contracts\HandlesShortCodes;
-use ArtisanBuild\Docsidian\Contracts\RestoresCodeBlocks;
-use ArtisanBuild\Docsidian\Contracts\StylesHeadings;
-use ArtisanBuild\Docsidian\Contracts\StylesLinks;
-use ArtisanBuild\Docsidian\Contracts\StylesPlainText;
-use ArtisanBuild\Docsidian\Contracts\TemporarilyRemovesCodeBlocks;
+use ArtisanBuild\Docsidian\Pipeline;
 
 return [
     'markdown_root' => env('DOCSIDIAN_MARKDOWN_ROOT', base_path('docs')),
@@ -22,16 +12,21 @@ return [
     'shortcode_namespace' => env('DOCSIDIAN_SHORTCODE_NAMESPACE', 'App\Docsidian\ShortCodes'),
 
     'transformations' => [
-        HandlesShortCodes::class,
-        DecoratesHashTags::class,
-        ConvertsMarkdownToHtml::class,
-        TemporarilyRemovesCodeBlocks::class,
-        DecoratesBlockQuoteCallouts::class,
-        GeneratesOnPageNavigation::class,
-        GetsTitle::class,
-        StylesPlainText::class,
-        StylesHeadings::class,
-        StylesLinks::class,
-        RestoresCodeBlocks::class,
+        Pipeline\HandleShortCodes::class,
+        Pipeline\DecorateHashTagsAsFluxBadges::class,
+        Pipeline\ConvertMarkdownToHtml::class,
+        Pipeline\TemporarilyRemoveCodeBlocks::class,
+        Pipeline\DecorateBlockQuoteCallouts::class,
+        Pipeline\GenerateOnPageNavigationUsingHeaders::class,
+        Pipeline\GetTitleFromFrontMatterOrFirstHeadingOne::class,
+        Pipeline\StylePlainTextWithFlux::class,
+        Pipeline\StyleHeadingsWithFlux::class,
+        Pipeline\StyleLinksWithFlux::class,
+        Pipeline\RestoreCodeBlocks::class,
+    ],
+
+    'navigation_transformations' => [
+        Pipeline\ConvertMarkdownToHtml::class,
+        Pipeline\GetTitleFromFrontMatterOrFirstHeadingOne::class,
     ],
 ];
