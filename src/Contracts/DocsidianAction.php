@@ -10,7 +10,7 @@ use Closure;
 interface DocsidianAction
 {
     /**
-     * @param Closure(DocsidianPage):DocsidianPage $next
+     * @param  Closure(DocsidianPage):DocsidianPage  $next
      */
     public function __invoke(DocsidianPage $page, Closure $next): DocsidianPage;
 }
