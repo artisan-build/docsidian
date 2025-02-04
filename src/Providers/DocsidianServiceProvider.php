@@ -15,6 +15,7 @@ class DocsidianServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->mergeConfigFrom(__DIR__.'/../../config/docsidian.php', 'docsidian');
+        $this->loadRoutesFrom(__DIR__.'/../../routes/docsidian-routes.php');
         $this->loadViewsFrom(__DIR__.'/../../resources/views', 'docsidian');
 
         $this->app->bind('shortcodes', fn (): array => collect(File::files(config('docsidian.shortcode_path')))
