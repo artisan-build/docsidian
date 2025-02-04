@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace ArtisanBuild\Docsidian\Pipeline;
 
-use ArtisanBuild\Docsidian\Contracts\ConvertsMarkdownToHtml;
+use ArtisanBuild\Docsidian\Contracts\DocsidianAction;
 use ArtisanBuild\Docsidian\DocsidianPage;
 use Closure;
 use Embed\Embed;
@@ -19,7 +19,7 @@ use League\CommonMark\Extension\GithubFlavoredMarkdownExtension;
 use League\CommonMark\MarkdownConverter;
 use Tempest\Highlight\CommonMark\HighlightExtension;
 
-class ConvertMarkdownToHtml implements ConvertsMarkdownToHtml
+class ConvertMarkdownToHtml implements DocsidianAction
 {
     private MarkdownConverter $converter;
 

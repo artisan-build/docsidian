@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace ArtisanBuild\Docsidian\Pipeline;
 
-use ArtisanBuild\Docsidian\Contracts\TemporarilyRemovesCodeBlocks;
+use ArtisanBuild\Docsidian\Contracts\DocsidianAction;
 use ArtisanBuild\Docsidian\DocsidianPage;
 use Closure;
 use DOMDocument;
 use Illuminate\Support\Facades\Context;
 use Illuminate\Support\Str;
 
-class TemporarilyRemoveCodeBlocks implements TemporarilyRemovesCodeBlocks
+class TemporarilyRemoveCodeBlocks implements DocsidianAction
 {
     public function __invoke(DocsidianPage $page, Closure $next): DocsidianPage
     {

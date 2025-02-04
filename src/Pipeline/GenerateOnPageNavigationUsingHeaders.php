@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace ArtisanBuild\Docsidian\Pipeline;
 
-use ArtisanBuild\Docsidian\Contracts\GeneratesOnPageNavigation;
+use ArtisanBuild\Docsidian\Contracts\DocsidianAction;
 use ArtisanBuild\Docsidian\DocsidianPage;
 use Closure;
 use DOMDocument;
 use Illuminate\Support\Str;
 
-class GenerateOnPageNavigationUsingHeaders implements GeneratesOnPageNavigation
+class GenerateOnPageNavigationUsingHeaders implements DocsidianAction
 {
     public function __invoke(DocsidianPage $page, Closure $next): DocsidianPage
     {

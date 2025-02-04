@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace ArtisanBuild\Docsidian\Pipeline;
 
-use ArtisanBuild\Docsidian\Contracts\RestoresCodeBlocks;
+use ArtisanBuild\Docsidian\Contracts\DocsidianAction;
 use ArtisanBuild\Docsidian\DocsidianPage;
 use Closure;
 use Illuminate\Support\Facades\Context;
 use Illuminate\Support\Str;
 
-class RestoreCodeBlocks implements RestoresCodeBlocks
+class RestoreCodeBlocks implements DocsidianAction
 {
     public function __invoke(DocsidianPage $page, Closure $next): DocsidianPage
     {
