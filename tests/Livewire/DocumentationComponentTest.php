@@ -6,8 +6,8 @@ use ArtisanBuild\Docsidian\Livewire\DocumentationComponent;
 use Illuminate\Support\Facades\File;
 use Livewire\Livewire;
 
-describe('DocumentationComponent', function () {
-    it('renders', function () {
+describe('DocumentationComponent', function (): void {
+    it('renders', function (): void {
         File::shouldReceive('exists')
             ->once()
             ->andReturnTrue();
