@@ -7,11 +7,12 @@ namespace ArtisanBuild\Docsidian\Providers;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\ServiceProvider;
-use Symfony\Component\Finder\SplFileInfo;
+use Illuminate\Support\Str;
+use Override;
 
 class DocsidianServiceProvider extends ServiceProvider
 {
-    #[\Override]
+    #[Override]
     public function register(): void
     {
         $this->mergeConfigFrom(__DIR__.'/../../config/docsidian.php', 'docsidian');
