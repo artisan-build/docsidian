@@ -7,7 +7,6 @@ namespace ArtisanBuild\Docsidian\Providers;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Str;
 use Override;
 
 class DocsidianServiceProvider extends ServiceProvider
