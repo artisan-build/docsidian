@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\ServiceProvider;
 use Override;
+use Symfony\Component\Finder\SplFileInfo;
 
 class DocsidianServiceProvider extends ServiceProvider
 {
