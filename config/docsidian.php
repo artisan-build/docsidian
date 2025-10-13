@@ -2,7 +2,17 @@
 
 declare(strict_types=1);
 
-use ArtisanBuild\Docsidian\Pipeline;
+use ArtisanBuild\Docsidian\Pipeline\ConvertMarkdownToHtml;
+use ArtisanBuild\Docsidian\Pipeline\DecorateBlockQuoteCallouts;
+use ArtisanBuild\Docsidian\Pipeline\DecorateHashTagsAsFluxBadges;
+use ArtisanBuild\Docsidian\Pipeline\GenerateOnPageNavigationUsingHeaders;
+use ArtisanBuild\Docsidian\Pipeline\GetTitleFromFrontMatterOrFirstHeadingOne;
+use ArtisanBuild\Docsidian\Pipeline\HandleShortCodes;
+use ArtisanBuild\Docsidian\Pipeline\RestoreCodeBlocks;
+use ArtisanBuild\Docsidian\Pipeline\StyleHeadingsWithFlux;
+use ArtisanBuild\Docsidian\Pipeline\StyleLinksWithFlux;
+use ArtisanBuild\Docsidian\Pipeline\StylePlainTextWithFlux;
+use ArtisanBuild\Docsidian\Pipeline\TemporarilyRemoveCodeBlocks;
 
 return [
     'markdown_root' => env('DOCSIDIAN_MARKDOWN_ROOT', base_path('docs')),
@@ -12,21 +22,21 @@ return [
     'shortcode_namespace' => env('DOCSIDIAN_SHORTCODE_NAMESPACE', 'App\Docsidian\ShortCodes'),
 
     'transformations' => [
-        Pipeline\HandleShortCodes::class,
-        Pipeline\DecorateHashTagsAsFluxBadges::class,
-        Pipeline\ConvertMarkdownToHtml::class,
-        Pipeline\TemporarilyRemoveCodeBlocks::class,
-        Pipeline\DecorateBlockQuoteCallouts::class,
-        Pipeline\GenerateOnPageNavigationUsingHeaders::class,
-        Pipeline\GetTitleFromFrontMatterOrFirstHeadingOne::class,
-        Pipeline\StylePlainTextWithFlux::class,
-        Pipeline\StyleHeadingsWithFlux::class,
-        Pipeline\StyleLinksWithFlux::class,
-        Pipeline\RestoreCodeBlocks::class,
+        HandleShortCodes::class,
+        DecorateHashTagsAsFluxBadges::class,
+        ConvertMarkdownToHtml::class,
+        TemporarilyRemoveCodeBlocks::class,
+        DecorateBlockQuoteCallouts::class,
+        GenerateOnPageNavigationUsingHeaders::class,
+        GetTitleFromFrontMatterOrFirstHeadingOne::class,
+        StylePlainTextWithFlux::class,
+        StyleHeadingsWithFlux::class,
+        StyleLinksWithFlux::class,
+        RestoreCodeBlocks::class,
     ],
 
     'navigation_transformations' => [
-        Pipeline\ConvertMarkdownToHtml::class,
-        Pipeline\GetTitleFromFrontMatterOrFirstHeadingOne::class,
+        ConvertMarkdownToHtml::class,
+        GetTitleFromFrontMatterOrFirstHeadingOne::class,
     ],
 ];
