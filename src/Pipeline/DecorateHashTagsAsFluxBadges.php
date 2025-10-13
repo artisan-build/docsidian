@@ -17,7 +17,7 @@ class DecorateHashTagsAsFluxBadges implements DocsidianAction
 
         preg_match_all($pattern, $page->markdown, $matches, PREG_SET_ORDER);
 
-        $replace = collect($matches)->mapWithKeys(fn (array $match, int $key) => [$match[0] => '<flux:badge color="'.config('docsidian.hashtag_color', 'lime').'">'.$match[0].'</flux:badge>'])->toArray();
+        $replace = collect($matches)->mapWithKeys(fn (array $match, int $key) => [$match[0] => '<flux:badge color="'.config('docsidian.hashtag_color', 'lime').'">'.$match[0].'</flux:badge>'])->all();
 
         $page->markdown = Str::replace(array_keys($replace), array_values($replace), $page->markdown);
 

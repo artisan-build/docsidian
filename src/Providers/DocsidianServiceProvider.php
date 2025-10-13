@@ -28,7 +28,7 @@ class DocsidianServiceProvider extends ServiceProvider
                 ]);
 
                 return [$key => $value];
-            })->toArray());
+            })->all());
 
     }
 
