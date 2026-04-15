@@ -6,7 +6,7 @@
   "require": {
     "embed/embed": "^4.4",
     "illuminate/support": "^11.36|^12.0|^13.0",
-    "livewire/livewire": "^v3.5.18",
+    "livewire/livewire": "^3.0|^4.0",
     "tempest/highlight": "^2.0",
     "league/commonmark": "^2.4",
     "illuminate/view": "^11.36|^12.0|^13.0",
