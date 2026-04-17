@@ -14,8 +14,8 @@ class HandleShortCodes implements DocsidianAction
     public function __invoke(DocsidianPage $page, Closure $next): DocsidianPage
     {
         $replace = collect($this->extractShortcodes($page->markdown))
-            ->filter(fn (array $code): bool => array_key_exists($code['key'], app('shortcodes')))
-            ->mapWithKeys(fn (array $code, int $key): array => [$code['original'] => app(app('shortcodes')[$code['key']])(...$code['attributes'])])
+            ->filter(fn (array $code): bool => array_key_exists($code['key'], resolve('shortcodes')))
+            ->mapWithKeys(fn (array $code, int $key): array => [$code['original'] => resolve(resolve('shortcodes')[$code['key']])(...$code['attributes'])])
             ->toArray();
 
         $page->markdown = Str::replace(array_keys($replace), array_values($replace), $page->markdown);

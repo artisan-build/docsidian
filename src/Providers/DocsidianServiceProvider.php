@@ -39,7 +39,7 @@ class DocsidianServiceProvider extends ServiceProvider
                 return '<strong class="ml-4">Error: </strong>'.$action.' does not appear to be an invokable class';
             }
 
-            return app($action)();
+            return resolve($action)();
         });
     }
 }
